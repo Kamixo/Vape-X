@@ -1,40 +1,44 @@
-import os
-import sys
-# DON'T CHANGE THIS !!!
-sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-
 from flask import Flask, send_from_directory
-from src.models.user import db
-from src.routes.user import user_bp
+from flask_cors import CORS
+from src.extensions import db
+import os
 
-app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
-app.config['SECRET_KEY'] = 'asdf#FGSgvasgf$5$WGT'
+app = Flask(__name__, static_folder='static', static_url_path='')
+CORS(app) # Enable CORS for all routes
 
-app.register_blueprint(user_bp, url_prefix='/api')
-
-# uncomment if you need to use database
-app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.dirname(__file__), 'database', 'app.db')}"
+# Database Configuration
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://XDampfer2Go:fjx0feox4w25jb97qWj56@r12.hallo.cloud:3306/vapex'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Initialize extensions
 db.init_app(app)
-with app.app_context():
-    db.create_all()
 
-@app.route('/', defaults={'path': ''})
+# Import models after db initialization
+from src.models.user import User
+from src.models.ingredient import Ingredient
+from src.models.recipe import Recipe, RecipeIngredient
+from src.models.vote import Vote
+
+# Serve static files (your frontend)
+@app.route('/')
+def serve_index():
+    return send_from_directory(app.static_folder, 'index.html')
+
 @app.route('/<path:path>')
-def serve(path):
-    static_folder_path = app.static_folder
-    if static_folder_path is None:
-            return "Static folder not configured", 404
+def serve_static(path):
+    return send_from_directory(app.static_folder, path)
 
-    if path != "" and os.path.exists(os.path.join(static_folder_path, path)):
-        return send_from_directory(static_folder_path, path)
-    else:
-        index_path = os.path.join(static_folder_path, 'index.html')
-        if os.path.exists(index_path):
-            return send_from_directory(static_folder_path, 'index.html')
-        else:
-            return "index.html not found", 404
+# Define a simple test route
+@app.route('/api/test')
+def test_api():
+    return {'message': 'API is working!'}
 
+# Register blueprints
+from src.routes.user import user_bp
+app.register_blueprint(user_bp, url_prefix='/api/user')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    with app.app_context():
+        db.create_all() # Create database tables based on models
+    app.run(debug=True, host='0.0.0.0', port=5000)
+
