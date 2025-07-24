@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Liquid Rechner</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header mit dynamischer Headline und Burger-Menü -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="app-icon">🧪</div>
+                    <h1 id="dynamicHeadline">E-Liquid Rechner</h1>
+                </div>
+                <div class="header-right">
+                    <button class="burger-menu" id="burgerMenu" aria-label="Menü öffnen">
+                        <span class="burger-line"></span>
+                        <span class="burger-line"></span>
+                        <span class="burger-line"></span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Burger-Menü Dropdown -->
+            <div class="burger-dropdown" id="burgerDropdown">
+                <div class="burger-dropdown-content">
+                    <button class="burger-item" id="burgerCalculator">
+                        <span class="burger-icon">🧮</span>
+                        <span>Rechner</span>
+                    </button>
+                    <button class="burger-item" id="burgerIngredients">
+                        <span class="burger-icon">🧪</span>
+                        <span>Zutaten verwalten</span>
+                    </button>
+                    <button class="burger-item" id="burgerAddIngredient">
+                        <span class="burger-icon">➕</span>
+                        <span>Neue Zutat hinzufügen</span>
+                    </button>
+                    <button class="burger-item" id="burgerRecipes">
+                        <span class="burger-icon">📋</span>
+                        <span>Rezepte verwalten</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Begrüßungstext anstelle der Navigation -->
+        <div class="welcome-section">
+            <div class="welcome-content">
+                <h2>🌟 Perfekte E-Liquid Mischungen leicht gemacht!</h2>
+                <p>Berechne präzise die idealen Mengen für deine E-Liquid Rezepte. Von der Nikotinstärke bis zu den Aromen - alles wird automatisch für dich berechnet. Einfach, schnell und zuverlässig!</p>
+            </div>
+        </div>
+
+        <!-- Rechner Sektion -->
+        <section id="calculatorSection" class="section active">
+            <div class="calculator-container">
+                <form id="liquidForm">
+                    <div class="form-group">
+                        <label for="recipeName">Rezeptname (optional)</label>
+                        <input type="text" id="recipeName" placeholder="Mein E-Liquid Rezept">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="targetVolume">Zielvolumen (ml)</label>
+                            <input type="number" id="targetVolume" min="1" max="1000" value="100" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nicotineBaseStrength">Nikotinstärke der Basis (mg/ml)</label>
+                            <input type="number" id="nicotineBaseStrength" min="0" max="100" value="20" step="0.1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="targetNicotineStrength">Gewünschte Nikotinstärke (mg/ml)</label>
+                            <input type="number" id="targetNicotineStrength" min="0" max="50" value="3" step="0.1" required>
+                        </div>
+                    </div>
+
+                    <div class="flavors-section">
+                        <div class="flavors-header">
+                            <label>Aromen</label>
+                            <button type="button" id="addFlavorBtn" class="add-flavor-btn">
+                                <span class="add-icon">➕</span>
+                                Aroma hinzufügen
+                            </button>
+                        </div>
+                        
+                        <div id="flavorsContainer">
+                            <div class="flavor-group" data-flavor-id="1">
+                                <div class="flavor-inputs">
+                                    <div class="flavor-name-container">
+                                        <input type="text" class="flavor-name" placeholder="Aroma Name (z.B. Erdbeere)" value="Aroma 1">
+                                        <div class="flavor-suggestions" style="display: none;"></div>
+                                    </div>
+                                    <div class="flavor-percentage-group">
+                                        <input type="number" class="flavor-percentage" min="0" max="30" value="10" step="0.1" required>
+                                        <span class="percentage-symbol">%</span>
+                                    </div>
+                                    <button type="button" class="remove-flavor-btn" title="Aroma entfernen">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <line x1="15" y1="9" x2="9" y2="15"/>
+                                            <line x1="9" y1="9" x2="15" y2="15"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="calculate-btn">
+                        <span class="btn-icon">⚡</span>
+                        Berechnen
+                    </button>
+                </form>
+
+                <!-- Ergebnisse -->
+                <div id="results" class="results" style="display: none;">
+                    <h3>Ergebnisse</h3>
+                    
+                    <div class="unit-toggle">
+                        <button class="unit-btn active" id="mlToggle">ml</button>
+                        <button class="unit-btn" id="gramToggle">Gramm</button>
+                    </div>
+
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <div class="result-icon">🧪</div>
+                            <div class="result-content">
+                                <h4>Basis</h4>
+                                <div class="result-value" id="baseVolume">0 ml</div>
+                                <div class="result-value-gram" id="baseWeight" style="display: none;">0 g</div>
+                            </div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-icon">💨</div>
+                            <div class="result-content">
+                                <h4>Nikotin</h4>
+                                <div class="result-value" id="nicotineVolume">0 ml</div>
+                                <div class="result-value-gram" id="nicotineWeight" style="display: none;">0 g</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="flavorsResults"></div>
+
+                    <div class="summary-card">
+                        <h4>Zusammenfassung</h4>
+                        <p>Für <strong id="summaryVolume">100 ml</strong> E-Liquid mit <strong id="summaryNicotine">3 mg/ml</strong> Nikotin benötigst du:</p>
+                        <ul id="summaryList"></ul>
+                    </div>
+                </div>
+
+                <!-- Benachrichtigung für neue Aromen -->
+                <div id="newFlavorNotification" class="notification" style="display: none;">
+                    <div class="notification-content">
+                        <div class="notification-icon">💡</div>
+                        <div class="notification-text">
+                            <p id="newFlavorText"></p>
+                        </div>
+                        <div class="notification-actions">
+                            <button id="saveNewFlavorsBtn" class="notification-btn primary">Speichern</button>
+                            <button id="dismissNotificationBtn" class="notification-btn secondary">Später</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rezeptverwaltung Buttons (nach Ergebnissen) -->
+                <div class="recipe-management" id="recipeManagement" style="display: none;">
+                    <div class="recipe-info">
+                        <h4>📋 Rezeptverwaltung</h4>
+                        <p>Speichere deine perfekte Mischung oder lade ein bestehendes Rezept.</p>
+                    </div>
+                    <div class="recipe-buttons">
+                        <button id="saveRecipeBtn" class="recipe-btn primary">
+                            <span class="btn-icon">💾</span>
+                            Rezept speichern
+                        </button>
+                        <button id="loadRecipeBtn" class="recipe-btn secondary">
+                            <span class="btn-icon">📂</span>
+                            Rezepte verwalten
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Fehleranzeige -->
+                <div id="error" class="error" style="display: none;">
+                    <div class="error-icon">⚠️</div>
+                    <div class="error-text" id="errorText"></div>
+                </div>
+
+                <!-- Hinweise -->
+                <div class="info-section">
+                    <h3>ℹ️ Hinweise</h3>
+                    <ul>
+                        <li>Die Nikotinstärke der Basis sollte höher sein als die gewünschte Zielstärke</li>
+                        <li>Der Aromenanteil liegt typischerweise zwischen 5% und 20%</li>
+                        <li>Alle Angaben sind Richtwerte - teste deine Mischung vorsichtig</li>
+                        <li>Verwende nur für E-Zigaretten geeignete Inhaltsstoffe</li>
+                        <li>Rezepte und Zutaten werden lokal in deinem Browser gespeichert</li>
+                        <li>Gramm-Angaben basieren auf typischen Dichten der Inhaltsstoffe</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Zutatenverwaltung Sektion -->
+        <section id="ingredientsSection" class="section">
+            <div class="ingredients-container">
+                <div class="ingredients-header">
+                    <div class="ingredients-title">
+                        <h2>🧪 Zutatenverwaltung</h2>
+                    </div>
+                    <button id="addIngredientBtn" class="add-ingredient-btn">
+                        <span class="btn-icon">➕</span>
+                        Neue Zutat hinzufügen
+                    </button>
+                </div>
+
+                <div class="ingredients-filters">
+                    <div class="filter-group">
+                        <label for="categoryFilter">Kategorie:</label>
+                        <select id="categoryFilter">
+                            <option value="all">Alle</option>
+                            <option value="aroma">Aromen</option>
+                            <option value="base">Basen</option>
+                            <option value="nicotine">Nikotin</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="searchIngredients">Suchen:</label>
+                        <input type="text" id="searchIngredients" placeholder="Name oder Marke...">
+                    </div>
+                </div>
+
+                <div id="ingredientsList" class="ingredients-list"></div>
+            </div>
+        </section>
+
+        <!-- PayPal Premium Modal -->
+        <div id="paypalModal" class="modal" style="display: none;">
+            <div class="modal-content paypal-modal">
+                <div class="modal-header">
+                    <h3>🚀 Premium-Version freischalten</h3>
+                    <button id="closePaypalModal" class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="premium-info">
+                        <div class="premium-icon">💎</div>
+                        <h4>Erweitere deine Möglichkeiten!</h4>
+                        <p>Du hast das kostenlose Limit von <strong>10 Einträgen</strong> erreicht.</p>
+                        
+                        <div class="premium-features">
+                            <h5>Mit der Premium-Version erhältst du:</h5>
+                            <ul>
+                                <li>✅ <strong>Unbegrenzte Zutaten</strong> speichern</li>
+                                <li>✅ <strong>Unbegrenzte Rezepte</strong> verwalten</li>
+                                <li>✅ <strong>Erweiterte Funktionen</strong> (in Entwicklung)</li>
+                                <li>✅ <strong>Prioritärer Support</strong></li>
+                                <li>✅ <strong>Keine Werbung</strong></li>
+                            </ul>
+                        </div>
+
+                        <div class="pricing">
+                            <div class="price-tag">
+                                <span class="price">4,99€</span>
+                                <span class="period">einmalig</span>
+                            </div>
+                        </div>
+
+                        <div class="paypal-section">
+                            <p class="paypal-info">Sichere Zahlung über PayPal:</p>
+                            <div class="paypal-button-container">
+                                <button class="paypal-button" id="paypalButton">
+                                    <div class="paypal-logo">
+                                        <span class="paypal-text">Pay</span><span class="paypal-text-blue">Pal</span>
+                                    </div>
+                                    <span class="paypal-amount">4,99€ bezahlen</span>
+                                </button>
+                            </div>
+                            <p class="paypal-note">
+                                <small>Nach der Zahlung wird dein Account automatisch auf Premium umgestellt.</small>
+                            </p>
+                        </div>
+
+                        <div class="alternative-options">
+                            <p><strong>Oder:</strong></p>
+                            <button class="alternative-btn" id="deleteOldEntriesBtn">
+                                🗑️ Alte Einträge löschen
+                            </button>
+                            <p class="alternative-note">
+                                <small>Du kannst auch alte Einträge löschen, um wieder unter das Limit zu kommen.</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rezept Modal -->
+        <div id="recipeModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Rezept speichern</h3>
+                    <button id="closeModal" class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body" id="modalBody"></div>
+            </div>
+        </div>
+
+        <!-- Zutat Modal -->
+        <div id="ingredientModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="ingredientModalTitle">Neue Zutat hinzufügen</h3>
+                    <button id="closeIngredientModal" class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="ingredientForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ingredientCategory">Kategorie *</label>
+                                <select id="ingredientCategory" name="category" required>
+                                    <option value="">Bitte wählen...</option>
+                                    <option value="aroma">Aroma</option>
+                                    <option value="base">Basis</option>
+                                    <option value="nicotine">Nikotin</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="ingredientBrand">Marke</label>
+                                <input type="text" id="ingredientBrand" name="brand" placeholder="z.B. TPA, Capella, Inawera">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ingredientName">Name *</label>
+                                <input type="text" id="ingredientName" name="name" placeholder="z.B. Strawberry Ripe" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ingredientPrice">Preis (€)</label>
+                                <input type="number" id="ingredientPrice" name="price" min="0" step="0.01" placeholder="0.00">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ingredientAmount">Menge (ml)</label>
+                                <input type="number" id="ingredientAmount" name="amount" min="0" step="0.1" placeholder="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="ingredientOptimalPercentage">Optimaler Geschmacksanteil (%)</label>
+                                <input type="number" id="ingredientOptimalPercentage" name="optimalPercentage" min="0" max="30" step="0.1" placeholder="5.0">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ingredientPG">PG Anteil (%)</label>
+                                <input type="number" id="ingredientPG" name="pg" min="0" max="100" step="0.1" placeholder="100">
+                            </div>
+                            <div class="form-group">
+                                <label for="ingredientVG">VG Anteil (%)</label>
+                                <input type="number" id="ingredientVG" name="vg" min="0" max="100" step="0.1" placeholder="0">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ingredientOther">Sonstige Anteil (%)</label>
+                                <input type="number" id="ingredientOther" name="other" min="0" max="100" step="0.1" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="ingredientNicotineStrength">Nikotinstärke (mg/ml)</label>
+                                <input type="number" id="ingredientNicotineStrength" name="nicotineStrength" min="0" max="100" step="0.1" placeholder="0">
+                            </div>
+                        </div>
+
+                        <div class="modal-buttons">
+                            <button type="button" class="modal-btn modal-btn-secondary" onclick="hideIngredientModal()">Abbrechen</button>
+                            <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
