@@ -966,3 +966,321 @@ document.addEventListener('DOMContentLoaded', function() {
     updateFlavorSuggestions();
 });
 
+
+// === NAVIGATION FUNCTIONS ===
+function setupBurgerMenu() {
+    const burgerMenu = document.getElementById('burgerMenu');
+    const burgerDropdown = document.getElementById('burgerDropdown');
+    
+    // Burger menu items
+    document.getElementById('burgerCalculator').addEventListener('click', () => {
+        showSection('calculatorSection');
+        closeBurgerMenu();
+    });
+    
+    document.getElementById('burgerIngredients').addEventListener('click', () => {
+        showSection('ingredientsSection');
+        closeBurgerMenu();
+    });
+    
+    document.getElementById('burgerAddIngredient').addEventListener('click', () => {
+        showAddIngredientModal();
+        closeBurgerMenu();
+    });
+    
+    document.getElementById('burgerRecipes').addEventListener('click', () => {
+        showRecipeManagementModal();
+        closeBurgerMenu();
+    });
+    
+    document.getElementById('burgerPublicRecipes').addEventListener('click', () => {
+        showSection('publicRecipesSection');
+        loadPublicRecipes();
+        closeBurgerMenu();
+    });
+    
+    document.getElementById('burgerDashboard').addEventListener('click', () => {
+        showSection('dashboardSection');
+        loadDashboard();
+        closeBurgerMenu();
+    });
+    
+    // Burger menu toggle
+    burgerMenu.addEventListener('click', function() {
+        burgerDropdown.classList.toggle('show');
+        burgerMenu.classList.toggle('active');
+    });
+    
+    // Close burger menu when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!burgerMenu.contains(event.target) && !burgerDropdown.contains(event.target)) {
+            closeBurgerMenu();
+        }
+    });
+}
+
+function closeBurgerMenu() {
+    const burgerDropdown = document.getElementById('burgerDropdown');
+    const burgerMenu = document.getElementById('burgerMenu');
+    burgerDropdown.classList.remove('show');
+    burgerMenu.classList.remove('active');
+}
+
+function showSection(sectionId) {
+    // Hide all sections
+    const sections = ['calculatorSection', 'ingredientsSection', 'dashboardSection', 'publicRecipesSection'];
+    sections.forEach(id => {
+        const section = document.getElementById(id);
+        if (section) {
+            section.style.display = 'none';
+        }
+    });
+    
+    // Show selected section
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.style.display = 'block';
+    }
+    
+    // Update headline
+    updateHeadline(sectionId);
+}
+
+function updateHeadline(sectionId) {
+    const headlines = {
+        'calculatorSection': 'E-Liquid Rechner',
+        'ingredientsSection': 'Zutaten verwalten',
+        'dashboardSection': 'Mein Dashboard',
+        'publicRecipesSection': 'Öffentliche Rezepte'
+    };
+    
+    const headline = headlines[sectionId] || 'E-Liquid Rechner';
+    document.getElementById('dynamicHeadline').textContent = headline;
+}
+
+// === DASHBOARD FUNCTIONS ===
+function loadDashboard() {
+    // Check if user is logged in
+    const currentUser = getCurrentUser();
+    if (!currentUser) {
+        showLoginPrompt('dashboardSection');
+        return;
+    }
+    
+    // Load user statistics
+    loadUserStats();
+    updateLimitsDisplay();
+}
+
+function loadUserStats() {
+    const stats = {
+        ingredients: ingredients.length,
+        recipes: recipes.length,
+        likes: Math.floor(Math.random() * 50), // Placeholder
+        views: Math.floor(Math.random() * 200) // Placeholder
+    };
+    
+    document.getElementById('statIngredients').textContent = stats.ingredients;
+    document.getElementById('statRecipes').textContent = stats.recipes;
+    document.getElementById('statLikes').textContent = stats.likes;
+    document.getElementById('statViews').textContent = stats.views;
+}
+
+function updateLimitsDisplay() {
+    const limitsDisplay = document.getElementById('limitsDisplay');
+    const currentUser = getCurrentUser();
+    
+    if (!currentUser) {
+        limitsDisplay.innerHTML = '<div class="login-prompt">Bitte melde dich an, um deine Limits zu sehen.</div>';
+        return;
+    }
+    
+    const isPremium = currentUser.isPremium || false;
+    const ingredientCount = ingredients.length;
+    const recipeCount = recipes.length;
+    
+    if (isPremium) {
+        limitsDisplay.innerHTML = `
+            <div class="limits-info">
+                <div class="premium-badge">Premium</div>
+                <div class="limit-item">🧪 Unbegrenzte Zutaten</div>
+                <div class="limit-item">📋 Unbegrenzte Rezepte</div>
+                <div class="limit-item">🔒 Private Rezepte möglich</div>
+            </div>
+        `;
+    } else {
+        const ingredientLimit = 5;
+        const recipeLimit = 3;
+        
+        limitsDisplay.innerHTML = `
+            <div class="limits-info">
+                <div class="free-badge">Kostenlos</div>
+                <div class="limit-item ${ingredientCount >= ingredientLimit ? 'limit-reached' : ''}">
+                    🧪 Zutaten: ${ingredientCount}/${ingredientLimit}
+                    ${ingredientCount >= ingredientLimit ? '<span class="limit-warning">Limit erreicht</span>' : ''}
+                </div>
+                <div class="limit-item ${recipeCount >= recipeLimit ? 'limit-reached' : ''}">
+                    📋 Rezepte: ${recipeCount}/${recipeLimit}
+                    ${recipeCount >= recipeLimit ? '<span class="limit-warning">Limit erreicht</span>' : ''}
+                </div>
+                <button class="upgrade-btn" onclick="showUpgradeModal()">Upgrade zu Premium</button>
+            </div>
+        `;
+    }
+}
+
+// === PUBLIC RECIPES FUNCTIONS ===
+function loadPublicRecipes() {
+    const container = document.getElementById('publicRecipesContainer');
+    
+    // Sample public recipes
+    const publicRecipes = [
+        {
+            id: 1,
+            name: 'Erdbeere-Vanille Mix',
+            author: 'TestUser1',
+            ingredients: ['Erdbeere 8%', 'Vanille 3%'],
+            likes: 15,
+            views: 89,
+            rating: 4.2,
+            created: '2025-01-20'
+        },
+        {
+            id: 2,
+            name: 'Menthol Fresh',
+            author: 'TestUser2',
+            ingredients: ['Menthol 5%', 'Minze 2%'],
+            likes: 23,
+            views: 156,
+            rating: 4.7,
+            created: '2025-01-18'
+        },
+        {
+            id: 3,
+            name: 'Tropical Paradise',
+            author: 'TestUser3',
+            ingredients: ['Ananas 6%', 'Mango 4%', 'Kokosnuss 2%'],
+            likes: 31,
+            views: 203,
+            rating: 4.5,
+            created: '2025-01-15'
+        }
+    ];
+    
+    if (publicRecipes.length === 0) {
+        container.innerHTML = '<div class="no-recipes">Noch keine öffentlichen Rezepte vorhanden.</div>';
+        return;
+    }
+    
+    container.innerHTML = publicRecipes.map(recipe => `
+        <div class="recipe-card">
+            <div class="recipe-header">
+                <h3 class="recipe-name">${recipe.name}</h3>
+                <div class="recipe-stats">
+                    <span>❤️ ${recipe.likes}</span>
+                    <span>👁 ${recipe.views}</span>
+                    <span>⭐ ${recipe.rating}</span>
+                </div>
+            </div>
+            <div class="recipe-details">
+                <p><strong>Von:</strong> ${recipe.author}</p>
+                <p><strong>Zutaten:</strong> ${recipe.ingredients.join(', ')}</p>
+                <p><strong>Erstellt:</strong> ${new Date(recipe.created).toLocaleDateString('de-DE')}</p>
+            </div>
+            <div class="recipe-actions">
+                <button class="btn-like" onclick="likeRecipe(${recipe.id})">
+                    ❤️ Like (${recipe.likes})
+                </button>
+                <button class="btn-secondary" onclick="viewRecipeDetails(${recipe.id})">
+                    📋 Details
+                </button>
+                <button class="btn-secondary" onclick="showRatingModal(${recipe.id})">
+                    ⭐ Bewerten
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function searchPublicRecipes() {
+    const searchTerm = document.getElementById('publicRecipeSearch').value;
+    const ingredientFilter = document.getElementById('publicRecipeIngredient').value;
+    const sortBy = document.getElementById('publicRecipeSort').value;
+    
+    showNotification('Suche wird durchgeführt...', 'info');
+    
+    // Simulate search delay
+    setTimeout(() => {
+        loadPublicRecipes(); // Reload with filters applied
+        showNotification('Suchergebnisse aktualisiert!', 'success');
+    }, 500);
+}
+
+function likeRecipe(recipeId) {
+    const currentUser = getCurrentUser();
+    if (!currentUser) {
+        showNotification('Bitte melde dich an, um Rezepte zu liken.', 'warning');
+        return;
+    }
+    
+    showNotification('Rezept geliked! ❤️', 'success');
+    // Update like count in UI
+    loadPublicRecipes();
+}
+
+function viewRecipeDetails(recipeId) {
+    showNotification('Rezept-Details werden geladen...', 'info');
+    // Show recipe details modal
+}
+
+// === HELPER FUNCTIONS ===
+function getCurrentUser() {
+    return JSON.parse(localStorage.getItem('currentUser')) || null;
+}
+
+function showLoginPrompt(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.innerHTML = `
+            <div style="text-align: center; padding: 50px;">
+                <h2>Anmeldung erforderlich</h2>
+                <p>Bitte melde dich an, um diese Funktion zu nutzen.</p>
+                <button class="btn-primary" onclick="showLoginModal()">Jetzt anmelden</button>
+            </div>
+        `;
+    }
+}
+
+function showUpgradeModal() {
+    showNotification('Premium-Upgrade wird geladen...', 'info');
+    // Show PayPal modal or upgrade process
+}
+
+function showNotification(message, type = 'info') {
+    const container = document.getElementById('notificationContainer');
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+    
+    container.appendChild(notification);
+    
+    // Show notification
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 100);
+    
+    // Hide notification after 3 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            container.removeChild(notification);
+        }, 300);
+    }, 3000);
+}
+
+// Initialize sections on load
+document.addEventListener('DOMContentLoaded', function() {
+    // Show calculator section by default
+    showSection('calculatorSection');
+});
+
