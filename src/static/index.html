@@ -16,6 +16,17 @@
                     <h1 id="dynamicHeadline">E-Liquid Rechner</h1>
                 </div>
                 <div class="header-right">
+                    <!-- Login/User Info -->
+                    <div class="auth-section">
+                        <button class="login-btn" id="loginBtn" onclick="showLoginModal()">
+                            <span class="login-icon">👤</span>
+                            Anmelden
+                        </button>
+                        <div class="user-info" id="userInfo" style="display: none;">
+                            <!-- Wird dynamisch gefüllt -->
+                        </div>
+                    </div>
+                    
                     <button class="burger-menu" id="burgerMenu" aria-label="Menü öffnen">
                         <span class="burger-line"></span>
                         <span class="burger-line"></span>
@@ -42,6 +53,14 @@
                     <button class="burger-item" id="burgerRecipes">
                         <span class="burger-icon">📋</span>
                         <span>Rezepte verwalten</span>
+                    </button>
+                    <button class="burger-item" id="burgerPublicRecipes">
+                        <span class="burger-icon">🌍</span>
+                        <span>Öffentliche Rezepte</span>
+                    </button>
+                    <button class="burger-item" id="burgerDashboard">
+                        <span class="burger-icon">📊</span>
+                        <span>Dashboard</span>
                     </button>
                 </div>
             </div>
@@ -391,6 +410,183 @@
         </div>
     </div>
 
+    <!-- Login/Registrierung Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="authTitle">Anmelden</h2>
+                <button class="modal-close" onclick="hideLoginModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="authForm" onsubmit="handleAuthSubmit(event)">
+                    <input type="hidden" id="authMode" name="mode" value="login">
+                    
+                    <div class="form-group">
+                        <label for="authEmail">E-Mail</label>
+                        <input type="email" id="authEmail" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="authPassword">Passwort</label>
+                        <input type="password" id="authPassword" name="password" required>
+                    </div>
+                    
+                    <div class="auth-error" id="authError"></div>
+                    
+                    <button type="submit" class="modal-btn modal-btn-primary" id="authSubmitBtn">Anmelden</button>
+                </form>
+                
+                <div class="auth-switch" id="authSwitchText">
+                    Noch kein Konto? <a href="#" onclick="switchAuthMode('register')">Registrieren</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Sektion -->
+    <section id="dashboardSection" class="section">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h2>📊 Mein Dashboard</h2>
+                <div class="limits-display" id="limitsDisplay">
+                    <!-- Wird dynamisch gefüllt -->
+                </div>
+            </div>
+            
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">🧪</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="statIngredients">-</div>
+                        <div class="stat-label">Zutaten</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">📋</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="statRecipes">-</div>
+                        <div class="stat-label">Rezepte</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">❤️</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="statLikes">-</div>
+                        <div class="stat-label">Likes erhalten</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">👁</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="statViews">-</div>
+                        <div class="stat-label">Views erhalten</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-actions">
+                <button class="btn-primary" onclick="showSection('calculatorSection')">
+                    🧮 Neues Rezept erstellen
+                </button>
+                <button class="btn-secondary" onclick="showSection('ingredientsSection')">
+                    🧪 Zutaten verwalten
+                </button>
+                <button class="btn-secondary" onclick="showSection('publicRecipesSection')">
+                    🌍 Öffentliche Rezepte durchsuchen
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Öffentliche Rezepte Sektion -->
+    <section id="publicRecipesSection" class="section">
+        <div class="public-recipes-container">
+            <div class="public-recipes-header">
+                <h2>🌍 Öffentliche Rezepte</h2>
+                <div class="search-controls">
+                    <div class="search-group">
+                        <input type="text" id="publicRecipeSearch" placeholder="Rezept suchen...">
+                        <input type="text" id="publicRecipeIngredient" placeholder="Nach Zutat filtern...">
+                    </div>
+                    <div class="sort-group">
+                        <select id="publicRecipeSort">
+                            <option value="created_at">Neueste</option>
+                            <option value="likes">Beliebteste</option>
+                            <option value="views">Meist angesehen</option>
+                            <option value="rating">Beste Bewertung</option>
+                        </select>
+                        <button class="btn-primary" onclick="searchPublicRecipes()">Suchen</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="public-recipes-grid" id="publicRecipesContainer">
+                <!-- Wird dynamisch gefüllt -->
+            </div>
+            
+            <div class="pagination" id="publicRecipesPagination">
+                <!-- Wird dynamisch gefüllt -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Rezept-Details Modal -->
+    <div class="modal" id="recipeDetailsModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 id="recipeDetailsTitle">Rezept Details</h2>
+                <button class="modal-close" onclick="hideRecipeDetailsModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="recipeDetailsBody">
+                <!-- Wird dynamisch gefüllt -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Bewertungs-Modal -->
+    <div class="modal" id="ratingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Rezept bewerten</h2>
+                <button class="modal-close" onclick="hideRatingModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="ratingForm" onsubmit="handleRatingSubmit(event)">
+                    <input type="hidden" id="ratingRecipeId" name="recipeId">
+                    
+                    <div class="form-group">
+                        <label>Bewertung</label>
+                        <div class="star-rating" id="starRating">
+                            <span class="star" data-rating="1">⭐</span>
+                            <span class="star" data-rating="2">⭐</span>
+                            <span class="star" data-rating="3">⭐</span>
+                            <span class="star" data-rating="4">⭐</span>
+                            <span class="star" data-rating="5">⭐</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ratingComment">Kommentar (optional)</label>
+                        <textarea id="ratingComment" name="comment" rows="3" placeholder="Wie hat dir das Rezept geschmeckt?"></textarea>
+                    </div>
+                    
+                    <div class="modal-buttons">
+                        <button type="button" class="modal-btn modal-btn-secondary" onclick="hideRatingModal()">Abbrechen</button>
+                        <button type="submit" class="modal-btn modal-btn-primary">Bewertung abgeben</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <script src="auth.js"></script>
+    <script src="api.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

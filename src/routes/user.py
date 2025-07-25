@@ -4,7 +4,7 @@ from src.models.user import User
 from werkzeug.security import check_password_hash
 import re
 
-user_bp = Blueprint('user', __name__)
+user_bp = Blueprint("user_bp", __name__)
 
 def validate_email(email):
     """E-Mail-Adresse validieren"""
