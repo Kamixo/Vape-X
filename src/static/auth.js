@@ -33,6 +33,8 @@ class AuthManager {
     // Benutzer anmelden
     async login(email, password) {
         try {
+            console.log('Login attempt:', email); // Debug
+            
             const response = await fetch(`${this.apiBase}/api/user/login`, {
                 method: 'POST',
                 headers: {
@@ -41,15 +43,27 @@ class AuthManager {
                 body: JSON.stringify({ email, password })
             });
 
+            console.log('Response status:', response.status); // Debug
+            console.log('Response headers:', response.headers.get('content-type')); // Debug
+
+            // Prüfen ob Response JSON ist
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                const text = await response.text();
+                console.error('Non-JSON response:', text);
+                return { success: false, error: 'Server-Fehler: Ungültige Antwort' };
+            }
+
             const data = await response.json();
 
             if (response.ok) {
                 this.setAuthData(data.token, data.user);
                 return { success: true, user: data.user };
             } else {
-                return { success: false, error: data.error };
+                return { success: false, error: data.error || 'Login fehlgeschlagen' };
             }
         } catch (error) {
+            console.error('Login error:', error);
             return { success: false, error: 'Netzwerkfehler: ' + error.message };
         }
     }

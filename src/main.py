@@ -37,10 +37,10 @@ def create_app():
     })
     
     # Blueprints registrieren
-    app.register_blueprint(user_bp, url_prefix='/api/user')
-    app.register_blueprint(ingredient_bp, url_prefix='/api/ingredients')
-    app.register_blueprint(recipe_bp, url_prefix='/api/recipes')
-    app.register_blueprint(vote_bp, url_prefix='/api/recipes')
+    app.register_blueprint(user_bp, url_prefix='/api')
+    app.register_blueprint(ingredient_bp, url_prefix='/api')
+    app.register_blueprint(recipe_bp, url_prefix='/api')
+    app.register_blueprint(vote_bp, url_prefix='/api')
     
     # Datenbank-Tabellen erstellen
     with app.app_context():
