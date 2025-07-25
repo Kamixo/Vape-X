@@ -62,15 +62,18 @@ def create_test_data():
     """Test-Daten für die Datenbank erstellen"""
     try:
         # Test-Benutzer erstellen
-        test_users = [
-            User(email='test@example.com', password='test123', is_premium=False),
-            User(email='premium@example.com', password='premium123', is_premium=True),
-            User(email='demo@vape-x.com', password='demo123', is_premium=False)
+        test_users_data = [
+            {'email': 'test@example.com', 'password': 'test123', 'is_premium': False},
+            {'email': 'premium@example.com', 'password': 'premium123', 'is_premium': True},
+            {'email': 'demo@vape-x.com', 'password': 'demo123', 'is_premium': False}
         ]
         
-        for user in test_users:
-            user.set_password(user.password)  # Hash das Passwort
+        test_users = []
+        for user_data in test_users_data:
+            user = User(email=user_data['email'], is_premium=user_data['is_premium'])
+            user.set_password(user_data['password'])  # Passwort korrekt setzen
             db.session.add(user)
+            test_users.append(user)
         
         db.session.commit()
         
