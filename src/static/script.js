@@ -972,43 +972,55 @@ function setupBurgerMenu() {
     const burgerMenu = document.getElementById('burgerMenu');
     const burgerDropdown = document.getElementById('burgerDropdown');
     
+    if (!burgerMenu || !burgerDropdown) {
+        console.error('Burger menu elements not found');
+        return;
+    }
+    
     // Burger menu items
-    document.getElementById('burgerCalculator').addEventListener('click', () => {
-        showSection('calculatorSection');
-        closeBurgerMenu();
-    });
+    const menuItems = {
+        'burgerCalculator': () => {
+            showSection('calculatorSection');
+            closeBurgerMenu();
+        },
+        'burgerIngredients': () => {
+            showSection('ingredientsSection');
+            closeBurgerMenu();
+        },
+        'burgerAddIngredient': () => {
+            showAddIngredientModal();
+            closeBurgerMenu();
+        },
+        'burgerRecipes': () => {
+            showRecipeManagementModal();
+            closeBurgerMenu();
+        },
+        'burgerPublicRecipes': () => {
+            showSection('publicRecipesSection');
+            loadPublicRecipes();
+            closeBurgerMenu();
+        },
+        'burgerDashboard': () => {
+            showSection('dashboardSection');
+            loadDashboard();
+            closeBurgerMenu();
+        }
+    };
     
-    document.getElementById('burgerIngredients').addEventListener('click', () => {
-        showSection('ingredientsSection');
-        closeBurgerMenu();
-    });
-    
-    document.getElementById('burgerAddIngredient').addEventListener('click', () => {
-        showAddIngredientModal();
-        closeBurgerMenu();
-    });
-    
-    document.getElementById('burgerRecipes').addEventListener('click', () => {
-        showRecipeManagementModal();
-        closeBurgerMenu();
-    });
-    
-    document.getElementById('burgerPublicRecipes').addEventListener('click', () => {
-        showSection('publicRecipesSection');
-        loadPublicRecipes();
-        closeBurgerMenu();
-    });
-    
-    document.getElementById('burgerDashboard').addEventListener('click', () => {
-        showSection('dashboardSection');
-        loadDashboard();
-        closeBurgerMenu();
+    // Event Listeners für Menü-Items
+    Object.keys(menuItems).forEach(itemId => {
+        const element = document.getElementById(itemId);
+        if (element) {
+            element.addEventListener('click', menuItems[itemId]);
+        } else {
+            console.warn(`Menu item ${itemId} not found`);
+        }
     });
     
     // Burger menu toggle
-    burgerMenu.addEventListener('click', function() {
-        burgerDropdown.classList.toggle('show');
-        burgerMenu.classList.toggle('active');
+    burgerMenu.addEventListener('click', function(e) {
+        e.stopPropagation();
+        toggleBurgerMenu();
     });
     
     // Close burger menu when clicking outside
@@ -1017,13 +1029,49 @@ function setupBurgerMenu() {
             closeBurgerMenu();
         }
     });
+    
+    console.log('✅ Burger menu setup complete');
+}
+
+function toggleBurgerMenu() {
+    const burgerDropdown = document.getElementById('burgerDropdown');
+    const burgerMenu = document.getElementById('burgerMenu');
+    
+    if (!burgerDropdown || !burgerMenu) return;
+    
+    const isOpen = burgerDropdown.classList.contains('show');
+    
+    if (isOpen) {
+        closeBurgerMenu();
+    } else {
+        openBurgerMenu();
+    }
+}
+
+function openBurgerMenu() {
+    const burgerDropdown = document.getElementById('burgerDropdown');
+    const burgerMenu = document.getElementById('burgerMenu');
+    
+    if (!burgerDropdown || !burgerMenu) return;
+    
+    burgerDropdown.classList.add('show');
+    burgerDropdown.classList.add('active');
+    burgerMenu.classList.add('active');
+    
+    console.log('🍔 Burger menu opened');
 }
 
 function closeBurgerMenu() {
     const burgerDropdown = document.getElementById('burgerDropdown');
     const burgerMenu = document.getElementById('burgerMenu');
+    
+    if (!burgerDropdown || !burgerMenu) return;
+    
     burgerDropdown.classList.remove('show');
+    burgerDropdown.classList.remove('active');
     burgerMenu.classList.remove('active');
+    
+    console.log('🍔 Burger menu closed');
 }
 
 function showSection(sectionId) {
