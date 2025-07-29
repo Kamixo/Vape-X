@@ -1,0 +1,166 @@
+{
+  "calculator": {
+    "title": "E-Liquid Rechner",
+    "subtitle": "Berechnen Sie Ihre perfekte E-Liquid Mischung",
+    "description": "Professioneller Rechner für präzise E-Liquid Berechnungen mit Nikotin, VG/PG und Aromen",
+    
+    "tabs": {
+      "simple": "Einfach",
+      "advanced": "Erweitert",
+      "batch": "Batch",
+      "converter": "Umrechner"
+    },
+    
+    "inputs": {
+      "target_volume": "Zielvolumen",
+      "target_nicotine": "Ziel-Nikotinstärke",
+      "vg_ratio": "VG-Anteil",
+      "pg_ratio": "PG-Anteil",
+      "base_nicotine": "Basis-Nikotinstärke",
+      "base_vg_ratio": "Basis VG-Anteil",
+      "base_pg_ratio": "Basis PG-Anteil",
+      "total_aroma": "Gesamt-Aroma",
+      "steeping_time": "Reifezeit"
+    },
+    
+    "labels": {
+      "volume": "Volumen",
+      "nicotine": "Nikotin",
+      "base": "Basis",
+      "aroma": "Aroma",
+      "vg": "VG (Vegetable Glycerin)",
+      "pg": "PG (Propylene Glycol)",
+      "ratio": "Verhältnis",
+      "strength": "Stärke",
+      "percentage": "Prozent",
+      "milliliters": "Milliliter",
+      "milligrams": "Milligramm",
+      "days": "Tage",
+      "weeks": "Wochen"
+    },
+    
+    "placeholders": {
+      "enter_volume": "Volumen eingeben (ml)",
+      "enter_nicotine": "Nikotinstärke eingeben (mg/ml)",
+      "enter_percentage": "Prozent eingeben (%)",
+      "select_aroma": "Aroma auswählen",
+      "enter_steeping": "Reifezeit eingeben (Tage)"
+    },
+    
+    "buttons": {
+      "calculate": "Berechnen",
+      "reset": "Zurücksetzen",
+      "clear": "Leeren",
+      "add_aroma": "Aroma hinzufügen",
+      "remove_aroma": "Aroma entfernen",
+      "save_recipe": "Rezept speichern",
+      "load_recipe": "Rezept laden",
+      "export": "Exportieren",
+      "print": "Drucken",
+      "share": "Teilen"
+    },
+    
+    "results": {
+      "title": "Berechnungsergebnis",
+      "summary": "Zusammenfassung",
+      "ingredients": "Zutaten",
+      "instructions": "Anleitung",
+      "notes": "Hinweise",
+      "total_volume": "Gesamtvolumen",
+      "final_nicotine": "Finale Nikotinstärke",
+      "final_vg_pg": "Finales VG/PG Verhältnis",
+      "cost_estimate": "Kostenschätzung"
+    },
+    
+    "ingredients": {
+      "nicotine_base": "Nikotin-Basis",
+      "vg_base": "VG-Basis",
+      "pg_base": "PG-Basis",
+      "aroma_total": "Aromen gesamt",
+      "distilled_water": "Destilliertes Wasser"
+    },
+    
+    "instructions": {
+      "step": "Schritt",
+      "mix_order": "Mischungsreihenfolge",
+      "safety": "Sicherheitshinweise",
+      "steeping": "Reifezeit",
+      "storage": "Lagerung",
+      "testing": "Testen"
+    },
+    
+    "warnings": {
+      "high_nicotine": "Hohe Nikotinstärke - Vorsicht beim Umgang!",
+      "low_vg": "Niedriger VG-Anteil kann zu wenig Dampf führen",
+      "high_aroma": "Hoher Aroma-Anteil kann den Geschmack überlasten",
+      "impossible_mix": "Diese Mischung ist nicht möglich",
+      "check_values": "Bitte überprüfen Sie Ihre Eingaben"
+    },
+    
+    "errors": {
+      "invalid_volume": "Ungültiges Volumen",
+      "invalid_nicotine": "Ungültige Nikotinstärke",
+      "invalid_ratio": "Ungültiges Verhältnis",
+      "calculation_failed": "Berechnung fehlgeschlagen",
+      "no_aromas": "Keine Aromen ausgewählt",
+      "values_too_high": "Werte zu hoch",
+      "values_too_low": "Werte zu niedrig"
+    },
+    
+    "tips": {
+      "title": "Tipps & Tricks",
+      "beginner": "Anfänger-Tipps",
+      "advanced": "Fortgeschrittene Tipps",
+      "safety": "Sicherheitstipps",
+      "storage": "Lagerungstipps",
+      "mixing": "Mischtipps"
+    },
+    
+    "presets": {
+      "title": "Voreinstellungen",
+      "save": "Voreinstellung speichern",
+      "load": "Voreinstellung laden",
+      "delete": "Voreinstellung löschen",
+      "name": "Name der Voreinstellung",
+      "description": "Beschreibung"
+    },
+    
+    "batch": {
+      "title": "Batch-Berechnung",
+      "description": "Berechnen Sie mehrere Flaschen gleichzeitig",
+      "bottles": "Anzahl Flaschen",
+      "bottle_size": "Flaschengröße",
+      "total_needed": "Gesamt benötigt",
+      "per_bottle": "Pro Flasche",
+      "scaling": "Skalierung"
+    },
+    
+    "converter": {
+      "title": "Einheiten-Umrechner",
+      "description": "Konvertieren Sie zwischen verschiedenen Einheiten",
+      "from": "Von",
+      "to": "Nach",
+      "convert": "Umrechnen",
+      "result": "Ergebnis",
+      "nicotine_converter": "Nikotin-Umrechner",
+      "volume_converter": "Volumen-Umrechner",
+      "percentage_converter": "Prozent-Umrechner"
+    },
+    
+    "history": {
+      "title": "Berechnungs-Verlauf",
+      "recent": "Kürzliche Berechnungen",
+      "saved": "Gespeicherte Berechnungen",
+      "clear_history": "Verlauf löschen",
+      "no_history": "Kein Verlauf vorhanden"
+    },
+    
+    "favorites": {
+      "add_to_favorites": "Zu Favoriten hinzufügen",
+      "remove_from_favorites": "Aus Favoriten entfernen",
+      "my_favorites": "Meine Favoriten",
+      "no_favorites": "Keine Favoriten vorhanden"
+    }
+  }
+}
+

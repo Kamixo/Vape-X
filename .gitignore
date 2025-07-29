@@ -1,0 +1,93 @@
+# VapeX E-Liquid Calculator - .gitignore
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Database credentials
+config/database.php
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+cache/
+
+# User uploads
+uploads/
+user_uploads/
+
+# Backup files
+backup_*/
+final_backup_*/
+*.backup
+*.bak
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# PHP
+vendor/
+composer.lock
+
+# Node.js (if used for build tools)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build files
+dist/
+build/
+
+# Session files
+sessions/
+*.sess
+
+# Error logs
+error.log
+access.log
+
+# FTP credentials
+ftp_config.php
+*.ftp
+
+# Development files
+test.php
+debug.php
+phpinfo.php
+
+# Screenshots and test images
+screenshots/
+test_images/
+
+# Personal notes
+notes.txt
+todo_personal.md
+
+# Browser data (development)
+.browser_data_dir/
+.cache/
+.local/
+.npm/
+.nvm/
+.pki/
+.secrets/
+
+# System files
+.bash_history
+.lesshst
+.git-credentials
+

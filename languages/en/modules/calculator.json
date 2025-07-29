@@ -1,0 +1,166 @@
+{
+  "calculator": {
+    "title": "E-Liquid Calculator",
+    "subtitle": "Calculate your perfect E-Liquid mixture",
+    "description": "Professional calculator for precise E-Liquid calculations with nicotine, VG/PG and aromas",
+    
+    "tabs": {
+      "simple": "Simple",
+      "advanced": "Advanced",
+      "batch": "Batch",
+      "converter": "Converter"
+    },
+    
+    "inputs": {
+      "target_volume": "Target Volume",
+      "target_nicotine": "Target Nicotine Strength",
+      "vg_ratio": "VG Ratio",
+      "pg_ratio": "PG Ratio",
+      "base_nicotine": "Base Nicotine Strength",
+      "base_vg_ratio": "Base VG Ratio",
+      "base_pg_ratio": "Base PG Ratio",
+      "total_aroma": "Total Aroma",
+      "steeping_time": "Steeping Time"
+    },
+    
+    "labels": {
+      "volume": "Volume",
+      "nicotine": "Nicotine",
+      "base": "Base",
+      "aroma": "Aroma",
+      "vg": "VG (Vegetable Glycerin)",
+      "pg": "PG (Propylene Glycol)",
+      "ratio": "Ratio",
+      "strength": "Strength",
+      "percentage": "Percentage",
+      "milliliters": "Milliliters",
+      "milligrams": "Milligrams",
+      "days": "Days",
+      "weeks": "Weeks"
+    },
+    
+    "placeholders": {
+      "enter_volume": "Enter volume (ml)",
+      "enter_nicotine": "Enter nicotine strength (mg/ml)",
+      "enter_percentage": "Enter percentage (%)",
+      "select_aroma": "Select aroma",
+      "enter_steeping": "Enter steeping time (days)"
+    },
+    
+    "buttons": {
+      "calculate": "Calculate",
+      "reset": "Reset",
+      "clear": "Clear",
+      "add_aroma": "Add Aroma",
+      "remove_aroma": "Remove Aroma",
+      "save_recipe": "Save Recipe",
+      "load_recipe": "Load Recipe",
+      "export": "Export",
+      "print": "Print",
+      "share": "Share"
+    },
+    
+    "results": {
+      "title": "Calculation Result",
+      "summary": "Summary",
+      "ingredients": "Ingredients",
+      "instructions": "Instructions",
+      "notes": "Notes",
+      "total_volume": "Total Volume",
+      "final_nicotine": "Final Nicotine Strength",
+      "final_vg_pg": "Final VG/PG Ratio",
+      "cost_estimate": "Cost Estimate"
+    },
+    
+    "ingredients": {
+      "nicotine_base": "Nicotine Base",
+      "vg_base": "VG Base",
+      "pg_base": "PG Base",
+      "aroma_total": "Total Aromas",
+      "distilled_water": "Distilled Water"
+    },
+    
+    "instructions": {
+      "step": "Step",
+      "mix_order": "Mixing Order",
+      "safety": "Safety Instructions",
+      "steeping": "Steeping Time",
+      "storage": "Storage",
+      "testing": "Testing"
+    },
+    
+    "warnings": {
+      "high_nicotine": "High nicotine strength - Handle with care!",
+      "low_vg": "Low VG ratio may result in less vapor",
+      "high_aroma": "High aroma percentage may overpower the taste",
+      "impossible_mix": "This mixture is not possible",
+      "check_values": "Please check your input values"
+    },
+    
+    "errors": {
+      "invalid_volume": "Invalid volume",
+      "invalid_nicotine": "Invalid nicotine strength",
+      "invalid_ratio": "Invalid ratio",
+      "calculation_failed": "Calculation failed",
+      "no_aromas": "No aromas selected",
+      "values_too_high": "Values too high",
+      "values_too_low": "Values too low"
+    },
+    
+    "tips": {
+      "title": "Tips & Tricks",
+      "beginner": "Beginner Tips",
+      "advanced": "Advanced Tips",
+      "safety": "Safety Tips",
+      "storage": "Storage Tips",
+      "mixing": "Mixing Tips"
+    },
+    
+    "presets": {
+      "title": "Presets",
+      "save": "Save Preset",
+      "load": "Load Preset",
+      "delete": "Delete Preset",
+      "name": "Preset Name",
+      "description": "Description"
+    },
+    
+    "batch": {
+      "title": "Batch Calculation",
+      "description": "Calculate multiple bottles at once",
+      "bottles": "Number of Bottles",
+      "bottle_size": "Bottle Size",
+      "total_needed": "Total Needed",
+      "per_bottle": "Per Bottle",
+      "scaling": "Scaling"
+    },
+    
+    "converter": {
+      "title": "Unit Converter",
+      "description": "Convert between different units",
+      "from": "From",
+      "to": "To",
+      "convert": "Convert",
+      "result": "Result",
+      "nicotine_converter": "Nicotine Converter",
+      "volume_converter": "Volume Converter",
+      "percentage_converter": "Percentage Converter"
+    },
+    
+    "history": {
+      "title": "Calculation History",
+      "recent": "Recent Calculations",
+      "saved": "Saved Calculations",
+      "clear_history": "Clear History",
+      "no_history": "No history available"
+    },
+    
+    "favorites": {
+      "add_to_favorites": "Add to Favorites",
+      "remove_from_favorites": "Remove from Favorites",
+      "my_favorites": "My Favorites",
+      "no_favorites": "No favorites available"
+    }
+  }
+}
+

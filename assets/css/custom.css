@@ -1,0 +1,526 @@
+/**
+ * VapeX E-Liquid Calculator - Custom CSS Extensions
+ * 
+ * @version 1.0.0
+ * @author VapeX Development Team
+ * @created 2025-07-29
+ * 
+ * This file extends the existing default.css with additional styles
+ * for the new modular system and multilingual features.
+ */
+
+/* =====================================================
+   CUSTOM PROPERTIES (CSS VARIABLES)
+   ===================================================== */
+
+:root {
+    /* VapeX Brand Colors */
+    --vape-purple: #6366f1;
+    --vape-blue: #3b82f6;
+    --vape-green: #10b981;
+    --vape-orange: #f59e0b;
+    --vape-red: #ef4444;
+    --vape-gray: #6b7280;
+    --vape-dark: #1f2937;
+    
+    /* Extended Color Palette */
+    --vape-purple-light: #8b5cf6;
+    --vape-purple-dark: #5b21b6;
+    --vape-blue-light: #60a5fa;
+    --vape-blue-dark: #1d4ed8;
+    --vape-green-light: #34d399;
+    --vape-green-dark: #047857;
+    --vape-orange-light: #fbbf24;
+    --vape-orange-dark: #d97706;
+    --vape-red-light: #f87171;
+    --vape-red-dark: #dc2626;
+    
+    /* Typography */
+    --font-roboto: 'Roboto', sans-serif;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.875rem;
+    --font-size-4xl: 2.25rem;
+    --font-size-5xl: 3rem;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    
+    /* Border Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    
+    /* Transitions */
+    --transition-fast: 150ms ease-in-out;
+    --transition-normal: 300ms ease-in-out;
+    --transition-slow: 500ms ease-in-out;
+}
+
+/* =====================================================
+   ENHANCED COMPONENTS
+   ===================================================== */
+
+/* Language Selector Enhancements */
+.language-selector {
+    position: relative;
+}
+
+.language-selector select {
+    background: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding-right: 1.5rem;
+}
+
+.language-selector::after {
+    content: '▼';
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+/* Enhanced Navigation */
+.nav-link {
+    position: relative;
+    transition: color var(--transition-fast);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -0.25rem;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--vape-blue);
+    transform: scaleX(0);
+    transition: transform var(--transition-fast);
+}
+
+.nav-link.active::after,
+.nav-link:hover::after {
+    transform: scaleX(1);
+}
+
+/* Enhanced Buttons */
+.btn-vape {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-roboto);
+}
+
+.btn-vape-primary {
+    background: var(--vape-blue);
+    color: white;
+}
+
+.btn-vape-primary:hover {
+    background: var(--vape-blue-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-vape-secondary {
+    background: transparent;
+    color: var(--vape-blue);
+    border: 2px solid var(--vape-blue);
+}
+
+.btn-vape-secondary:hover {
+    background: var(--vape-blue);
+    color: white;
+}
+
+.btn-vape-success {
+    background: var(--vape-green);
+    color: white;
+}
+
+.btn-vape-success:hover {
+    background: var(--vape-green-dark);
+}
+
+.btn-vape-warning {
+    background: var(--vape-orange);
+    color: white;
+}
+
+.btn-vape-warning:hover {
+    background: var(--vape-orange-dark);
+}
+
+.btn-vape-danger {
+    background: var(--vape-red);
+    color: white;
+}
+
+.btn-vape-danger:hover {
+    background: var(--vape-red-dark);
+}
+
+/* Enhanced Cards */
+.card-vape {
+    background: white;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+    overflow: hidden;
+}
+
+.card-vape:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-2px);
+}
+
+.card-vape-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.card-vape-body {
+    padding: 1.5rem;
+}
+
+.card-vape-footer {
+    padding: 1rem 1.5rem;
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* Enhanced Forms */
+.form-group-vape {
+    margin-bottom: 1.5rem;
+}
+
+.form-label-vape {
+    display: block;
+    font-weight: 500;
+    color: var(--vape-dark);
+    margin-bottom: 0.5rem;
+    font-size: var(--font-size-sm);
+}
+
+.form-input-vape {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-base);
+    transition: all var(--transition-fast);
+    font-family: var(--font-roboto);
+}
+
+.form-input-vape:focus {
+    outline: none;
+    border-color: var(--vape-blue);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-input-vape.error {
+    border-color: var(--vape-red);
+}
+
+.form-input-vape.error:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Enhanced Alerts */
+.alert-vape {
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-lg);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.alert-vape .material-icons {
+    margin-right: 0.75rem;
+    font-size: 1.25rem;
+}
+
+.alert-success {
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.alert-warning {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fde68a;
+}
+
+.alert-error {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.alert-info {
+    background: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #93c5fd;
+}
+
+/* =====================================================
+   RESPONSIVE ENHANCEMENTS
+   ===================================================== */
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+    .mobile-menu {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background: white;
+        box-shadow: var(--shadow-xl);
+        transition: left var(--transition-normal);
+        z-index: 1000;
+        padding: 2rem;
+    }
+    
+    .mobile-menu.active {
+        left: 0;
+    }
+    
+    .mobile-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: all var(--transition-normal);
+        z-index: 999;
+    }
+    
+    .mobile-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* Tablet Adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+/* =====================================================
+   UTILITY CLASSES
+   ===================================================== */
+
+/* Text Colors */
+.text-vape-purple { color: var(--vape-purple); }
+.text-vape-blue { color: var(--vape-blue); }
+.text-vape-green { color: var(--vape-green); }
+.text-vape-orange { color: var(--vape-orange); }
+.text-vape-red { color: var(--vape-red); }
+.text-vape-gray { color: var(--vape-gray); }
+.text-vape-dark { color: var(--vape-dark); }
+
+/* Background Colors */
+.bg-vape-purple { background-color: var(--vape-purple); }
+.bg-vape-blue { background-color: var(--vape-blue); }
+.bg-vape-green { background-color: var(--vape-green); }
+.bg-vape-orange { background-color: var(--vape-orange); }
+.bg-vape-red { background-color: var(--vape-red); }
+.bg-vape-gray { background-color: var(--vape-gray); }
+.bg-vape-dark { background-color: var(--vape-dark); }
+
+/* Gradients */
+.gradient-vape-primary {
+    background: linear-gradient(135deg, var(--vape-blue), var(--vape-purple));
+}
+
+.gradient-vape-success {
+    background: linear-gradient(135deg, var(--vape-green), var(--vape-blue));
+}
+
+.gradient-vape-warning {
+    background: linear-gradient(135deg, var(--vape-orange), var(--vape-red));
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slide-in {
+    animation: slideIn 0.5s ease-out;
+}
+
+.animate-pulse {
+    animation: pulse 2s infinite;
+}
+
+/* Loading States */
+.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid var(--vape-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* =====================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ===================================================== */
+
+/* Focus States */
+.focus-vape:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+    border-radius: var(--radius-md);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    :root {
+        --vape-blue: #0066cc;
+        --vape-green: #008800;
+        --vape-red: #cc0000;
+        --vape-orange: #cc6600;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* =====================================================
+   RTL LANGUAGE SUPPORT
+   ===================================================== */
+
+[dir="rtl"] .nav-link::after {
+    right: 0;
+    left: auto;
+}
+
+[dir="rtl"] .language-selector::after {
+    right: auto;
+    left: 0.5rem;
+}
+
+[dir="rtl"] .alert-vape .material-icons {
+    margin-right: 0;
+    margin-left: 0.75rem;
+}
+
+/* =====================================================
+   PRINT STYLES
+   ===================================================== */
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+        color: black;
+        background: white;
+    }
+    
+    .card-vape {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        page-break-inside: avoid;
+    }
+    
+    .btn-vape {
+        border: 1px solid #ccc;
+        background: white !important;
+        color: black !important;
+    }
+}
+
