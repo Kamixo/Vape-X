@@ -16,6 +16,7 @@
   },
   
   "common": {
+    "features": "Features",
     "yes": "Yes",
     "no": "No",
     "ok": "OK",
@@ -265,6 +266,25 @@
     "foot": "foot",
     "yard": "yard",
     "mile": "mile"
+  },
+  
+  "home": {
+    "features_description": "Professional tools for the perfect e-liquid mixture",
+    "calculator_description": "Precise calculations for perfect mixtures",
+    "aromas_description": "Comprehensive database with over 1000 aromas",
+    "recipes_description": "Community recipes and proven mixtures",
+    "multilingual_description": "Available in 7 languages worldwide",
+    "quick_start": "Quick Start",
+    "quick_start_description": "Create your perfect e-liquid in 3 simple steps",
+    "step1_title": "Select Aromas",
+    "step1_description": "Choose your favorite aromas from our comprehensive database",
+    "step2_title": "Calculate Mixture",
+    "step2_description": "Our calculator creates the perfect mixture for you",
+    "step3_title": "Mix E-Liquid",
+    "step3_description": "Follow the instructions and enjoy your self-mixed e-liquid",
+    "start_now": "Start Now",
+    "language_demo": "Language Selection Demo",
+    "current_language": "Current Language: {{language}} (Auto Detect)"
   },
   
   "language": {
