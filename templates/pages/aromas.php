@@ -21,42 +21,58 @@
 <!-- Search and Filter -->
 <section class="py-8 bg-white border-b border-gray-200">
     <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
-            <div class="flex flex-col md:flex-row gap-4">
-                
-                <!-- Search Bar -->
-                <div class="flex-1">
-                    <div class="relative">
-                        <span class="material-icons absolute left-3 top-3 text-gray-400">search</span>
-                        <input type="text" 
-                               class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vape-green focus:border-transparent"
-                               placeholder="<?php echo __('common.search'); ?> <?php echo __('navigation.aromas'); ?>...">
-                    </div>
+        <!-- Search and Filters -->
+        <div class="mb-8 aromas-page">
+            <div class="overview-search-bar">
+                <div class="search-container search-input-wrapper">
+                    <i class="material-icons search-icon">search</i>
+                    <input type="text" 
+                           placeholder="<?= I18n::t('aromas.search_placeholder') ?>" 
+                           class="search-input"
+                           data-search-context="aromas">
+                    <i class="material-icons clear-search" onclick="this.previousElementSibling.value=''; this.previousElementSibling.dispatchEvent(new Event('input'));">clear</i>
                 </div>
                 
-                <!-- Category Filter -->
-                <div class="md:w-48">
+                <!-- Filters -->
+                <div class="overview-search-filters">
+                    <!-- Category Filter -->
                     <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vape-green focus:border-transparent">
-                        <option><?php echo __('common.all'); ?> <?php echo __('forms.category', 'Kategorien'); ?></option>
-                        <option><?php echo __('aromas.categories.fruit', 'Frucht'); ?></option>
-                        <option><?php echo __('aromas.categories.dessert', 'Dessert'); ?></option>
-                        <option><?php echo __('aromas.categories.tobacco', 'Tabak'); ?></option>
-                        <option><?php echo __('aromas.categories.menthol', 'Menthol'); ?></option>
-                        <option><?php echo __('aromas.categories.beverage', 'Getränk'); ?></option>
+                        <option><?= I18n::t('common.all') ?> <?= I18n::t('forms.category') ?></option>
+                        <option><?= I18n::t('aromas.categories.fruit') ?></option>
+                        <option><?= I18n::t('aromas.categories.dessert') ?></option>
+                        <option><?= I18n::t('aromas.categories.tobacco') ?></option>
+                        <option><?= I18n::t('aromas.categories.menthol') ?></option>
+                        <option><?= I18n::t('aromas.categories.beverage') ?></option>
                     </select>
-                </div>
-                
-                <!-- Brand Filter -->
-                <div class="md:w-48">
+                    
+                    <!-- Brand Filter -->
                     <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vape-green focus:border-transparent">
-                        <option><?php echo __('common.all'); ?> <?php echo __('aromas.brands', 'Marken'); ?></option>
+                        <option><?= I18n::t('common.all') ?> <?= I18n::t('aromas.brands') ?></option>
                         <option>Capella</option>
                         <option>TPA/TFA</option>
                         <option>Flavorah</option>
                         <option>Inawera</option>
                         <option>FlavourArt</option>
                     </select>
+                    
+                    <!-- Sort Filter -->
+                    <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vape-green focus:border-transparent">
+                        <option><?= I18n::t('common.sort_by') ?></option>
+                        <option><?= I18n::t('common.name') ?></option>
+                        <option><?= I18n::t('aromas.brand') ?></option>
+                        <option><?= I18n::t('common.category') ?></option>
+                        <option><?= I18n::t('common.popular') ?></option>
+                    </select>
                 </div>
+            </div>
+        </div>
+        
+        <!-- Search Results Count -->
+        <div class="search-results-count hidden">
+            <i class="material-icons">search</i>
+            <span></span>
+        </div>
+    </div>
                 
             </div>
         </div>
