@@ -1,0 +1,4 @@
+.cache/
+.browser_data_dir/
+screenshots/
+*.zip
